@@ -33,20 +33,20 @@ char *read0(){
 #ifdef _WIN32
 #include<io.h>
 #define isatty _isatty
-char win=1;
+#define STDIN "CON:"
 #else
 #include<unistd.h>
-char win=0;
+#define STDIN "/dev/tty"
 #endif
 int main(int argc,char** argv){
 	setbuf(stdout,0);
 	char *code=0,*pointer,skip=1;
 	size_t lenCode=0,lenPointer=1;
-	FILE *input=fopen(win?"CON:":"/dev/tty","r");
+	FILE *input=fopen(STDIN,"r");
 	if(argc>1){
 		for(size_t i=0;++i<(size_t)argc;)
 			if(!cmpstr(argv[i],"--help")){
-				printf("Usage: Pikalang"),printf(win?"Windows":"Linux"),printf(" [options] [filename]\n\nOptions:\n--do-not-skip-newline  Include the newline (and the carriage return) in the input stream (Skip by default)\n--help                 Show help\n--skip-newline         Skip the newline (and the carriage return) in the input stream (Skip by default)\n");
+				printf("Usage: Pikalang [options] [filename]\n\nOptions:\n--do-not-skip-newline  Include the newline (and the carriage return) in the input stream (Skip by default)\n--help                 Show help\n--skip-newline         Skip the newline (and the carriage return) in the input stream (Skip by default)\n");
 				if(code)
 					free(code),lenCode=0;
 				return 0;
