@@ -16,8 +16,6 @@ pipi pikachu pika chu
 Save the text and run it (Windows users can run this using the interpreter, just like any program). GNU+Linux users need to allow the execution of this program (You can google how to do this), then they can run the GNU+Linux executable in a terminal by typing `<ProgramLocation>/PikalangLinux <CodeLocation>/<CodeName>` (If the terminal is open where the program is, just put a `./` behind `PikalangLinux`)).
 
 To run this in any directory, you have to add this to your global variables. You can search how to do it in each operating system.
-
-This interpreter has command-line arguments. To see all of them, give the argument `--help` to the program.
 ## Sidenotes
 This program uses the [strcal](https://github.com/Amirreza-Ipchi-Haq/strcal) library for some string operations.
 
