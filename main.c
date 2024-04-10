@@ -79,12 +79,16 @@ void execute(){
 				break;
 			case 7://Skip to a matching `chu` if the current pointer value is 0
 				if(!pointer[pointerLocation]){
+					if(codeLocation+1==strlen(code)){//Halt if there's no matching `[`
+						exitCode=1,fprintf(stderr,"\nError at locaton %u: Missing 'chu'!\n",codeLocation);
+						return;
+					}
 					size_t debug=codeLocation;//Save current pointer location for debug purposes
 					codeLocation++;//Increase the pointer indicator value
 					for(size_t i=1;i;codeLocation++)//Skip part of the code until reaching a matching `]`
 						if(codeLocation+1==strlen(code)&&(code[codeLocation]!=8||i>1)){//Halt if there's no matching `]`
 							exitCode=1,fprintf(stderr,"\nError at locaton %u: Missing 'chu'!\n",debug);
-							goto finish;
+							return;
 						}else if(code[codeLocation]==7)//(Nested `[`)
 							i++;
 						else if(code[codeLocation]==8)//(Matching `]`)
@@ -94,12 +98,16 @@ void execute(){
 				break;
 			case 8://Go back to a matching `pika` if the current pointer value is non-zero
 				if(pointer[pointerLocation]){
+					if(!codeLocation){//Halt if there's no matching `[`
+						exitCode=1,fprintf(stderr,"\nError at locaton %u: Missing 'pika'!\n",codeLocation);
+						return;
+					}
 					size_t debug=codeLocation;//Save current pointer location for debug purposes
 					codeLocation--;//Decrease the pointer indicator value
 					for(size_t i=1;i;codeLocation--)//Go back until reaching a matching `[`
 						if(!codeLocation&&(code[codeLocation]!=7||i>1)){//Halt if there's no matching `[`
 							exitCode=1,fprintf(stderr,"\nError at locaton %u: Missing 'pika'!\n",debug);
-							goto finish;
+							return;
 						}else if(code[codeLocation]==7)//(Nested `[`)
 							i--;
 						else if(code[codeLocation]==8)//(Matching `]`)
@@ -107,7 +115,6 @@ void execute(){
 					codeLocation++;//Increase the pointer indicator value
 				}
 		}
-	finish:
 	return;
 }
 int main(int argc,char** argv){
