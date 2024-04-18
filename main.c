@@ -55,7 +55,7 @@ void append(char front){
 	return;
 }
 void execute(){
-	for(size_t codeLocation=0;codeLocation<strlen(code);codeLocation++)//Read a part of code each time
+	for(size_t codeLocation=0,lenCode=strlen(code);codeLocation<lenCode;codeLocation++)//Read a part of code each time
 		switch(code[codeLocation]){//Choose a command based on the code
 			case 1://Push the pointer indicator forward
 				if(++pointerLocation==len)//Add a new pointer to the back if needed
@@ -79,14 +79,14 @@ void execute(){
 				break;
 			case 7://Skip to a matching `chu` if the current pointer value is 0
 				if(!pointer[pointerLocation]){
-					if(codeLocation+1==strlen(code)){//Halt if there's no matching `[`
+					if(codeLocation+1==lenCode){//Halt if there's no matching `[`
 						exitCode=1,fprintf(stderr,"\nError at locaton %u: Missing 'chu'!\n",codeLocation);
 						return;
 					}
 					size_t debug=codeLocation;//Save current pointer location for debug purposes
 					codeLocation++;//Increase the pointer indicator value
 					for(size_t i=1;i;codeLocation++)//Skip part of the code until reaching a matching `]`
-						if(codeLocation+1==strlen(code)&&(code[codeLocation]!=8||i>1)){//Halt if there's no matching `]`
+						if(codeLocation+1==lenCode&&(code[codeLocation]!=8||i>1)){//Halt if there's no matching `]`
 							exitCode=1,fprintf(stderr,"\nError at locaton %u: Missing 'chu'!\n",debug);
 							return;
 						}else if(code[codeLocation]==7)//(Nested `[`)
