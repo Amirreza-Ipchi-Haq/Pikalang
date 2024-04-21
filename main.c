@@ -122,8 +122,7 @@ int main(int argc,char** argv){
 	if(argc>1){
 		FILE *file=fopen(argv[1],"r");//Open the file
 		if(file)
-			read0(file);
-		fclose(file);
+			read0(file),fclose(file);
 	}
 	pointer=malloc(sizeof(char)),pointer[0]=0;
 	if(!code[0]&&isatty(0)){//(shell mode)
@@ -151,6 +150,6 @@ int main(int argc,char** argv){
 		}
 	}else if(!code[0])
 		read0(stdin);
-	execute(),free(code),free(pointer);
+	execute(),free(code),free(pointer),fclose(input);
 	return exitCode;
 }
