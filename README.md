@@ -17,5 +17,5 @@ Save the text and run it (Windows users can run this using the interpreter, just
 
 To run this in any directory, you have to add this to your global variables. You can search how to do it in each operating system.
 ## Sidenotes
-This program uses the [strcal](https://github.com/Amirreza-Ipchi-Haq/strcal) library for some string operations.
+This program uses the [dynastr](https://github.com/Amirreza-Ipchi-Haq/dynastr) library for some string operations.
 
