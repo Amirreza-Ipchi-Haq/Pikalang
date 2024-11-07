@@ -1,6 +1,6 @@
 #include<stdio.h>
-#include"cstrcal.h"
-#define WHITE(c) ((char)c==' '||(char)c=='\t'||(char)c=='\n'||(char)c=='\r')
+#include"dynastr.h"
+#define WHITE(c) (c==' '||c=='\t'||c=='\n'||c=='\r')
 #define INPUT
 #ifdef _WIN32
 #include<io.h>
@@ -15,34 +15,34 @@ size_t len=1,pointerLocation=0;
 FILE *input;
 void read0(FILE *file){
 	if(code[0])
-		free(code),code=strtmp("",0);
+		free(code),code=dynastr_strtmp("",0);
 	char command[9];
 	for(fscanf(file,"%8s",command);!feof(file);fscanf(file,"%8s",command))
 		if(strlen(command)>7)
 			for(char c=getc(file);!WHITE(c);c=getc(file));
-		else if(!cmpstr(command,"pipi"))
-			code=strappend(code,CHR2STR(1),2);
-		else if(!cmpstr(command,"pichu"))
-			code=strappend(code,CHR2STR(2),2);
-		else if(!cmpstr(command,"pi"))
-			code=strappend(code,CHR2STR(3),2);
-		else if(!cmpstr(command,"ka"))
-			code=strappend(code,CHR2STR(4),2);
-		else if(!cmpstr(command,"pikachu"))
-			code=strappend(code,CHR2STR(5),2);
-		else if(!cmpstr(command,"pikapi"))
-			code=strappend(code,CHR2STR(6),2);
-		else if(!cmpstr(command,"pika"))
-			code=strappend(code,CHR2STR(7),2);
-		else if(!cmpstr(command,"chu"))
-			code=strappend(code,CHR2STR(8),2);
+		else if(!strcmp(command,"pipi"))
+			code=dynastr_strappend(code,DYNASTR_CHR2STR(1),2);
+		else if(!strcmp(command,"pichu"))
+			code=dynastr_strappend(code,DYNASTR_CHR2STR(2),2);
+		else if(!strcmp(command,"pi"))
+			code=dynastr_strappend(code,DYNASTR_CHR2STR(3),2);
+		else if(!strcmp(command,"ka"))
+			code=dynastr_strappend(code,DYNASTR_CHR2STR(4),2);
+		else if(!strcmp(command,"pikachu"))
+			code=dynastr_strappend(code,DYNASTR_CHR2STR(5),2);
+		else if(!strcmp(command,"pikapi"))
+			code=dynastr_strappend(code,DYNASTR_CHR2STR(6),2);
+		else if(!strcmp(command,"pika"))
+			code=dynastr_strappend(code,DYNASTR_CHR2STR(7),2);
+		else if(!strcmp(command,"chu"))
+			code=dynastr_strappend(code,DYNASTR_CHR2STR(8),2);
 	return;
 }
 void discard(char **str){
 	while(*str[0]&&!WHITE(*str[0]))
-		*str=strnrtmp(*str,strlen(*str)-1,1);
+		*str=dynastr_strnrtmp(*str,strlen(*str)-1,1);
 	while(*str[0]&&WHITE(*str[0]))
-		*str=strnrtmp(*str,strlen(*str)-1,1);
+		*str=dynastr_strnrtmp(*str,strlen(*str)-1,1);
 	return;
 }
 void append(char front){
@@ -118,7 +118,7 @@ void execute(){
 	return;
 }
 int main(int argc,char** argv){
-	setbuf(stdout,0),input=fopen(STDIN,"r"),code=strtmp("",0);
+	setbuf(stdout,0),input=fopen(STDIN,"r"),code=dynastr_strtmp("",0);
 	if(argc>1){
 		FILE *file=fopen(argv[1],"r");//Open the file
 		if(file)
@@ -128,25 +128,25 @@ int main(int argc,char** argv){
 	if(!code[0]&&isatty(0)){//(shell mode)
 		printf("Entered shell-mode!");//Notify
 		for(char *input0,command[9];1;free(input0),execute()){
-			printf("\n>>> "),input0=strtmp("",0);
-			for(char c=getchar();c!='\n';input0=strappend(input0,CHR2STR(c),2),c=getchar());
+			printf("\n>>> "),input0=dynastr_strtmp("",0);
+			for(char c=getchar();c!='\n';input0=dynastr_strappend(input0,DYNASTR_CHR2STR(c),2),c=getchar());
 			for(sscanf(input0,"%8s",command);input0[0];discard(&input0),sscanf(input0,"%8s",command))
-				if(!cmpstr(command,"pipi"))
-					code=strappend(code,CHR2STR(1),2);
-				else if(!cmpstr(command,"pichu"))
-					code=strappend(code,CHR2STR(2),2);
-				else if(!cmpstr(command,"pi"))
-					code=strappend(code,CHR2STR(3),2);
-				else if(!cmpstr(command,"ka"))
-					code=strappend(code,CHR2STR(4),2);
-				else if(!cmpstr(command,"pikachu"))
-					code=strappend(code,CHR2STR(5),2);
-				else if(!cmpstr(command,"pikapi"))
-					code=strappend(code,CHR2STR(6),2);
-				else if(!cmpstr(command,"pika"))
-					code=strappend(code,CHR2STR(7),2);
-				else if(!cmpstr(command,"chu"))
-					code=strappend(code,CHR2STR(8),2);
+				if(!strcmp(command,"pipi"))
+					code=dynastr_strappend(code,DYNASTR_CHR2STR(1),2);
+				else if(!strcmp(command,"pichu"))
+					code=dynastr_strappend(code,DYNASTR_CHR2STR(2),2);
+				else if(!strcmp(command,"pi"))
+					code=dynastr_strappend(code,DYNASTR_CHR2STR(3),2);
+				else if(!strcmp(command,"ka"))
+					code=dynastr_strappend(code,DYNASTR_CHR2STR(4),2);
+				else if(!strcmp(command,"pikachu"))
+					code=dynastr_strappend(code,DYNASTR_CHR2STR(5),2);
+				else if(!strcmp(command,"pikapi"))
+					code=dynastr_strappend(code,DYNASTR_CHR2STR(6),2);
+				else if(!strcmp(command,"pika"))
+					code=dynastr_strappend(code,DYNASTR_CHR2STR(7),2);
+				else if(!strcmp(command,"chu"))
+					code=dynastr_strappend(code,DYNASTR_CHR2STR(8),2);
 		}
 	}else if(!code[0])
 		read0(stdin);
