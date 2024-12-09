@@ -124,7 +124,7 @@ int main(int argc,char** argv){
 		if(file)
 			read0(file),fclose(file);
 	}
-	pointer=malloc(sizeof(char)),pointer[0]=0;
+	pointer=malloc(1),pointer[0]=0;
 	if(!code[0]&&isatty(0)){//(shell mode)
 		printf("Entered shell-mode!");//Notify
 		for(char *input0,command[9];1;free(input0),execute()){
