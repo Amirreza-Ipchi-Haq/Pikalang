@@ -3,6 +3,8 @@ COMMITMESSAGE=""
 EDIT=vi
 ICON=icon.ico
 SRC=main.c
+STRIP=strip
+WINSTRIP=i686-w64-mingw32-strip
 TARGET=Pikalang
 WINCC=i686-w64-mingw32-gcc
 WINDRES=i686-w64-mingw32-windres
@@ -14,17 +16,21 @@ commit:
 		git commit;\
 	fi
 compileLinux:
-	${CC} ${SRC} -o ${TARGET}Linux -m32 -static-libgcc -Wall -Wextra
+	${CC} ${SRC} -o ${TARGET}Linux -m32 -static -Wall -Wextra -Os
+	${STRIP} -s ${TARGET}Linux
+compileOSX:
+	${CC} ${SRC} -o ${TARGET}OSX -Wall -Wextra -Os
+	${STRIP} ${TARGET}OSX
 compileWindows:
 	echo 'MAINICON ICON "${ICON}"'>resource.rc
 	${WINDRES} -O coff -o resource.res resource.rc
-	${WINCC} ${SRC} -o ${TARGET}Windows.exe resource.res -static-libgcc -Wall -Wextra
+	${WINCC} ${SRC} -o ${TARGET}Windows.exe resource.res -static -Wall -Wextra -Os
 	rm resource.rc resource.res
+	${WINSTRIP} -s ${TARGET}Windows.exe
 edit:
 	${EDIT} ${SRC}
 fetch:
 	git fetch
-	curl https://raw.githubusercontent.com/Amirreza-Ipchi-Haq/dynastr/refs/heads/main/dynastr.h>dynastr.h
 help:
 	echo "Makefile commands:\n\tcommit [COMMITMESSAGE=<message>]  Commit to the repository using\n\t                                  <message> as the commit message (Leave\n\t                                  empty to enter description as well)\n\tcompileLinux                      Compile for Linux\n\tcompileWindows                    Compile for Windows\n\tedit [EDIT=<editor>]              Edit the source code (using Vim by\n\t                                  default)\n\tfetch                             Fetch updates from the repository\n\thelp                              Show help\n\tpush                              Push updates to the repository\n\trun                               Run on Linux"
 push:
