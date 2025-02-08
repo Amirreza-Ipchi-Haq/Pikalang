@@ -39,6 +39,7 @@ edit:
 	${EDIT} ${SRC}
 fetch:
 	git fetch
+	curl https://raw.githubusercontent.com/Amirreza-Ipchi-Haq/dynastr/refs/heads/main/dynastr.h>dynastr.h
 push:
 	git push
 run:
